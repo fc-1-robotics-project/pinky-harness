@@ -1,0 +1,8 @@
+{
+  "name": "pinky-harness",
+  "description": "Pinky Pro(ROS 2 Jazzy) 로봇 개발 하네스: 차선 인식·주행 알고리즘·Nav2 전문 에이전트와 안전 검토자, 생성·검증 루프 오케스트레이터.",
+  "version": "0.1.0",
+  "author": { "name": "SeungHoon Jeong" },
+  "license": "Apache-2.0",
+  "keywords": ["ros2", "robotics", "lane-detection", "pure-pursuit", "nav2", "harness"]
+}

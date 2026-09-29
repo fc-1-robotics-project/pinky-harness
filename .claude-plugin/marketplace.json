@@ -1,0 +1,15 @@
+{
+  "name": "pinky-harness-marketplace",
+  "description": "Pinky Pro(ROS 2 Jazzy) 로봇 개발 하네스 플러그인",
+  "owner": {
+    "name": "SeungHoon Jeong"
+  },
+  "plugins": [
+    {
+      "name": "pinky-harness",
+      "source": "./",
+      "description": "Pinky Pro 차선 인식 · 주행 알고리즘 · Nav2 개발 하네스",
+      "version": "0.1.0"
+    }
+  ]
+}
