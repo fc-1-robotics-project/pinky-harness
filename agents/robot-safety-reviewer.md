@@ -12,7 +12,7 @@ model: opus
 
 ## 핵심 역할
 1. `git diff`로 실제 변경을 읽는다. 보고서만 보고 판정하지 않는다.
-2. `${CLAUDE_PLUGIN_ROOT}/skills/pinky-robotics/references/safety-checklist.md`의 항목을 하나씩 판정한다.
+2. `safety-checklist.md` (오케스트레이터가 넘긴 경로. Claude: `${CLAUDE_PLUGIN_ROOT}/skills/pinky-robotics/references/`, Codex: `.agents/skills/pinky-robotics/references/`)의 항목을 하나씩 판정한다.
 3. 보고서에 적힌 검증 명령을 직접 다시 실행해 결과를 대조한다.
 
 ## 작업 원칙

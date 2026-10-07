@@ -1,6 +1,6 @@
 # pinky-harness
 
-Pinky Pro(ROS 2 Jazzy) 개발용 Claude Code 플러그인. [revfactory/harness](https://github.com/revfactory/harness) v2 방식으로 만들었다.
+Pinky Pro(ROS 2 Jazzy) 개발용 Claude Code 플러그인 겸 Codex 스킬·에이전트 모음. [revfactory/harness](https://github.com/revfactory/harness) v2 방식으로 만들었다.
 
 | 구성 | 역할 |
 | --- | --- |
@@ -18,7 +18,28 @@ Pinky Pro(ROS 2 Jazzy) 개발용 Claude Code 플러그인. [revfactory/harness](
 /plugin install pinky-harness@pinky-harness-marketplace
 ```
 
-GitHub에 올린 뒤에는 `/plugin marketplace add <owner>/pinky-harness`.
+GitHub: `/plugin marketplace add fc-1-robotics-project/pinky-harness`.
+
+## Codex 설치
+
+```shell
+git clone git@github.com:fc-1-robotics-project/pinky-harness.git ~/pinky-harness
+# 스킬 (사용자 전역)
+mkdir -p ~/.agents && ln -s ~/pinky-harness/skills ~/.agents/skills   # 이미 있으면 하위 폴더만 링크
+# 커스텀 에이전트
+mkdir -p ~/.codex/agents && ln -s ~/pinky-harness/.codex/agents/*.toml ~/.codex/agents/
+```
+
+또는 대상 저장소에 `.agents/skills`, `.codex/agents`를 복사/링크한다.
+
+| | Claude Code | Codex |
+| --- | --- | --- |
+| 지침 | `CLAUDE.md` (→ `AGENTS.md` symlink) | `AGENTS.md` |
+| 스킬 | `skills/` (플러그인) | `.agents/skills` (→ `skills/` symlink) |
+| 에이전트 | `agents/*.md` (원본) | `.codex/agents/*.toml` (생성물) |
+
+`agents/*.md`를 고치면 `python3 -I scripts/sync-codex.py`로 TOML을 다시 만들고 `scripts/check.sh`로 확인한다.
+Codex 런타임에서의 동작은 아직 시험하지 않았다 (형식만 공식 문서 기준).
 
 ## 전제
 

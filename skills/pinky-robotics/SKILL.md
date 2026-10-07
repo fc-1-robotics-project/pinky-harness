@@ -7,6 +7,8 @@ description: "Pinky Pro(ROS 2 Jazzy) 로봇 개발 작업을 차선 인식·주�
 
 ## 실행 모드: 서브에이전트 위임 + 생성·검증 루프
 
+> **호스트별 호출법.** Claude Code: Agent 도구에 아래 `subagent_type`을 넘긴다. Codex: 같은 이름의 커스텀 에이전트(`.codex/agents/<이름>.toml`, 접두사 `pinky-harness:` 제외)를 지정해 서브에이전트로 띄운다. 이후 절차의 "서브에이전트 호출"은 호스트에 맞게 읽는다.
+
 개발 에이전트가 만들고(Producer), `robot-safety-reviewer`가 검증한다(Reviewer). 에이전트끼리 대화할 필요는 없고 파일로 넘기면 충분해서 서브에이전트 위임을 쓴다.
 
 | 에이전트 | `subagent_type` | 맡는 영역 |
@@ -42,7 +44,7 @@ description: "Pinky Pro(ROS 2 Jazzy) 로봇 개발 작업을 차선 인식·주�
 같은 파일을 두 에이전트가 동시에 고치게 배정하지 않는다. 겹치면 순차로 바꾼다.
 
 ### 3단계: 안전 검토 (서브에이전트 위임)
-`pinky-harness:robot-safety-reviewer`를 부르며 기준 커밋, 모든 `01_*_report.md` 경로, 체크리스트 경로 `${CLAUDE_PLUGIN_ROOT}/skills/pinky-robotics/references/safety-checklist.md`를 넘긴다. 변수가 치환되지 않았으면 `find ~/.claude/plugins -path '*pinky-harness*' -name safety-checklist.md`로 실제 경로를 찾아 넘긴다. 반환 메시지를 `02_robot-safety-reviewer_review.md`로 저장한다.
+`pinky-harness:robot-safety-reviewer`를 부르며 기준 커밋, 모든 `01_*_report.md` 경로, 체크리스트 경로를 넘긴다. Claude: `${CLAUDE_PLUGIN_ROOT}/skills/pinky-robotics/references/safety-checklist.md` (치환 안 되면 `find ~/.claude/plugins -path '*pinky-harness*' -name safety-checklist.md`). Codex: `.agents/skills/pinky-robotics/references/safety-checklist.md` (설치 위치 기준, 없으면 `find ~ -path '*pinky-robotics/references/safety-checklist.md'`). 반환 메시지를 `02_robot-safety-reviewer_review.md`로 저장한다.
 
 ### 4단계: 루프
 - `VERDICT: FAIL` → FAIL 항목 담당 에이전트만 지적 파일 경로와 함께 다시 부른다 → 3단계. 최대 **3회**. 그래도 FAIL이면 멈추고 사용자에게 지적 목록을 보인다.
